@@ -1,9 +1,12 @@
 import { AppState, Auth0Provider, User } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   children: React.ReactNode;
 };
 const Auth0ProviderWithNavigate = ({ children }: Props) => {
+  const navigate = useNavigate();
+
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
   const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
@@ -12,7 +15,9 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
     throw new Error("Unable to initialize Auth0");
 
   const onRedirectCallback = (appState?: AppState, user?: User) => {
-    console.log("USER", user);
+    // User has been registered with Auth0, now to save user data in
+    // our own db, navigate to page where save logic implemented.
+    navigate("/auth-callback");
   };
 
   return (
