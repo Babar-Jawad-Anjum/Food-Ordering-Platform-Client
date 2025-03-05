@@ -1,4 +1,4 @@
-import { AppState, Auth0Provider, User } from "@auth0/auth0-react";
+import { Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -10,11 +10,13 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
   const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
-  if (!domain || !clientId || !redirectUri)
+  if (!domain || !clientId || !redirectUri || !audience)
     throw new Error("Unable to initialize Auth0");
 
-  const onRedirectCallback = (appState?: AppState, user?: User) => {
+  // (appState?: AppState, user?: User)
+  const onRedirectCallback = () => {
     // User has been registered with Auth0, now to save user data in
     // our own db, navigate to page where save logic implemented.
     navigate("/auth-callback");
@@ -26,6 +28,7 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
       clientId={clientId}
       authorizationParams={{
         redirect_uri: redirectUri,
+        audience,
       }}
       onRedirectCallback={onRedirectCallback}
     >
