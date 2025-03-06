@@ -1,6 +1,6 @@
 import { CreateUserRequest, UpdateMyUserRequest, User } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -25,13 +25,16 @@ export const useGetMyUser = () => {
 
   const {
     data: currentUser,
-    isLoading,
+    isPending, // ✅ FIXED: use `isPending` instead of `isLoading`
     error,
-  } = useQuery("fetchCurrentUser", getMyUserRequest);
+  } = useQuery({
+    queryKey: ["fetchCurrentUser"],
+    queryFn: getMyUserRequest,
+  });
 
   if (error) toast.error(error.toString());
 
-  return { currentUser, isLoading };
+  return { currentUser, isPending };
 };
 
 export const useCreateMyUser = () => {
@@ -53,12 +56,14 @@ export const useCreateMyUser = () => {
 
   const {
     mutateAsync: createUser,
-    isLoading,
+    isPending, // ✅ FIXED: use `isPending` instead of `isLoading`
     isError,
     isSuccess,
-  } = useMutation(createMyUserRequest);
+  } = useMutation({
+    mutationFn: createMyUserRequest,
+  });
 
-  return { createUser, isLoading, isError, isSuccess };
+  return { createUser, isPending, isError, isSuccess };
 };
 
 export const useUpdateMyUser = () => {
@@ -80,11 +85,13 @@ export const useUpdateMyUser = () => {
 
   const {
     mutateAsync: updateUser,
-    isLoading,
+    isPending, // ✅ FIXED: use `isPending` instead of `isLoading`
     isSuccess,
     error,
     reset,
-  } = useMutation(updateMyUserRequest);
+  } = useMutation({
+    mutationFn: updateMyUserRequest,
+  });
 
   if (isSuccess) toast.success("User Profile Updated!");
   if (error) {
@@ -92,5 +99,5 @@ export const useUpdateMyUser = () => {
     reset();
   }
 
-  return { updateUser, isLoading, isSuccess, error, reset };
+  return { updateUser, isPending, isSuccess, error, reset };
 };
