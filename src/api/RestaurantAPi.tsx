@@ -1,5 +1,5 @@
 import { SearchState } from "@/pages/SearchPage";
-import { RestaurantSearchResponse } from "@/types";
+import { Restaurant, RestaurantSearchResponse } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -39,4 +39,30 @@ export const useSearchRestaurants = (
   if (error) toast.error(error.toString());
 
   return { results, isPending };
+};
+
+export const useGetRestaurant = (restaurantId?: string) => {
+  const getRestaurantByIdRequest = async (): Promise<Restaurant> => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/restaurant/${restaurantId}`
+    );
+
+    if (!response.ok) throw new Error("Failed to get restaurant");
+
+    return response.json();
+  };
+
+  const {
+    data: restaurant,
+    isPending, // ✅ FIXED: use `isPending` instead of `isLoading`
+    error,
+  } = useQuery({
+    queryKey: ["fetchRestaurant"],
+    queryFn: getRestaurantByIdRequest,
+    enabled: !!restaurantId,
+  });
+
+  if (error) toast.error(error.toString());
+
+  return { restaurant, isPending };
 };
