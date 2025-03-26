@@ -75,3 +75,8 @@ export type Order = {
   createdAt: string;
   restaurantId: string;
 };
+
+export type UpdateOrderStatusRequest = {
+  orderId: string;
+  status: string;
+};
