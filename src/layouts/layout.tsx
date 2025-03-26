@@ -15,7 +15,7 @@ const Layout = ({ children, showHero = false }: Props) => {
       {/* Hero Section */}
       {showHero && <Hero />}
       {/* Rest  */}
-      <div className="container mx-auto flex-1 py-4">{children}</div>
+      <div className="mx-3 md:mx-20 flex-1 py-4">{children}</div>
       {/* Footer Section */}
       <Footer />
     </div>

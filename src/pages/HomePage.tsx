@@ -14,8 +14,8 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col gap-10">
-      <div className="md:px-32 bg-white rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16">
-        <h1 className="text-4xl font-bold tracking-tight text-orange-600">
+      <div className="md:px-24 bg-white rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16">
+        <h1 className="text-4xl font-bold tracking-tight text-[#F88340]">
           Tuck into a takeaway today.
         </h1>
         <span className="text-lg">Food is just a click away!</span>
