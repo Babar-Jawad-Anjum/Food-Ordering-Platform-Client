@@ -1,13 +1,14 @@
 import { useGetMyOrders } from "@/api/OrderApi";
 import OrderStatusDetail from "@/components/OrderStatusDetail";
 import OrderStatusHeader from "@/components/OrderStatusHeader";
+import Spinner from "@/components/Spinner";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const OrderStatusPage = () => {
   const { orders, isPending } = useGetMyOrders();
 
   if (isPending) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (!orders || orders.length === 0) {

@@ -2,7 +2,7 @@ import hero from "../assets/hero.png";
 
 const Hero = () => {
   return (
-    <div className="">
+    <div className="min-h-80vh">
       <img
         src={hero}
         alt="hero-img"

@@ -1,5 +1,6 @@
 import { MenuItem } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
 
 type Props = {
   menuItem: MenuItem;
@@ -7,12 +8,15 @@ type Props = {
 };
 const SingleMenuItem = ({ menuItem, addToCart }: Props) => {
   return (
-    <Card className="cursor-pointer" onClick={addToCart}>
+    <Card>
       <CardHeader>
         <CardTitle>{menuItem.name}</CardTitle>
       </CardHeader>
-      <CardContent className="font-bold">
+      <CardContent className="font-bold flex justify-between">
         ${(menuItem.price / 100).toFixed(2)}
+        <Button onClick={addToCart} className="bg-[#F88340] text-white">
+          Add to Cart
+        </Button>
       </CardContent>
     </Card>
   );

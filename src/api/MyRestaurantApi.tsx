@@ -63,13 +63,13 @@ export const useGetMyRestaurant = () => {
   const {
     data: restaurant,
     isPending, // ✅ FIXED: use `isPending` instead of `isLoading`
-    error,
+    // error,
   } = useQuery({
     queryKey: ["fetchMyRestaurant"],
     queryFn: getMyRestaurantRequest,
   });
 
-  if (error) toast.error(error.toString());
+  // if (error) toast.error(error.toString());
 
   return { restaurant, isPending };
 };

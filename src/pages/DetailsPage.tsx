@@ -4,6 +4,7 @@ import CheckoutButton from "@/components/CheckoutButton";
 import OrderSummary from "@/components/OrderSummary";
 import RestaurantInfo from "@/components/RestaurantInfo";
 import SingleMenuItem from "@/components/SingleMenuItem";
+import Spinner from "@/components/Spinner";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardFooter } from "@/components/ui/card";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
@@ -104,7 +105,7 @@ const DetailsPage = () => {
     window.location.href = data.url;
   };
 
-  if (isLoading || !restaurant) return `Loading...`;
+  if (isLoading || !restaurant) return <Spinner />;
 
   return (
     <div className="flex flex-col gap-7">
@@ -115,7 +116,7 @@ const DetailsPage = () => {
           alt="restaurant-img"
         />
       </AspectRatio>
-      <div className="grid md:grid-cols-[4fr_2fr] gap-5 px-2 md:px-32">
+      <div className="grid md:grid-cols-[4fr_2fr] gap-5 px-2 md:px-16">
         <div className="flex flex-col gap-4">
           <RestaurantInfo restaurant={restaurant} />
           <span className="text-xl font-bold tracking-tight">Menu</span>
